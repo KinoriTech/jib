@@ -2,7 +2,7 @@ param (
     [string] $apiKey
 )
 
-Publish-Module `
+Publish-Script `
     -Path ./src/Jib.ps1 `
     -NuGetApiKey $apiKey `
     -Verbose -Force

@@ -29,6 +29,5 @@ jobs:
         env:
           API_KEY: ${{ secrets.API_KEY }}
         run: |
-          dotnet tool restore
           Write-Host "Publishing to PowerShell Gallery"
           .\publish.ps1 -apiKey $env:API_KEY
