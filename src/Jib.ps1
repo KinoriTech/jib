@@ -1,3 +1,17 @@
+<#PSScriptInfo
+.VERSION 1.0
+.GUID f50d40a4-5ab1-4a3b-9294-4cbe60197c8b
+.AUTHOR Horacio Hoyos
+.COMPANYNAME Kinori Tech
+.COPYRIGHT Kinori tech
+.TAGS Laravel Sail Docker
+.LICENSEURI https://opensource.org/license/mit/
+.PROJECTURI https://github.com/KinoriTech/jib
+.ICONURI 
+.EXTERNALMODULEDEPENDENCIES PSWriteColor
+.RELEASENOTES Initial Release
+#> 
+
 Import-Module PSWriteColor
 
 function Invoke-Jib {
