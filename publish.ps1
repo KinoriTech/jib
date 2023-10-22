@@ -3,6 +3,6 @@ param (
 )
 
 Publish-Module `
-    -Path src/Jib.ps1 `
+    -Path ./src/Jib.ps1 `
     -NuGetApiKey $apiKey `
     -Verbose -Force
