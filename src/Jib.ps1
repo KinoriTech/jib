@@ -1,4 +1,5 @@
 <#PSScriptInfo
+
 .VERSION 1.0
 .GUID f50d40a4-5ab1-4a3b-9294-4cbe60197c8b
 .AUTHOR Horacio Hoyos
@@ -10,6 +11,9 @@
 .ICONURI 
 .EXTERNALMODULEDEPENDENCIES PSWriteColor
 .RELEASENOTES Initial Release
+
+.DESCRIPTION
+Jib provides a Docker powered local development experience for Laravel that is compatible with Windows using PowerShell
 #> 
 
 Import-Module PSWriteColor
