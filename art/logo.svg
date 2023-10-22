@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   version="1.0"
+   width="200pt"
+   height="90pt"
+   viewBox="0 0 200 90"
+   preserveAspectRatio="xMidYMid"
+   id="svg138"
+   sodipodi:docname="logo.svg"
+   inkscape:version="1.2.2 (732a01da63, 2022-12-09)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs142" />
+  <sodipodi:namedview
+     id="namedview140"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#505050"
+     inkscape:document-units="pt"
+     showgrid="false"
+     inkscape:zoom="1.9953669"
+     inkscape:cx="90.208972"
+     inkscape:cy="-37.336491"
+     inkscape:window-width="1366"
+     inkscape:window-height="1008"
+     inkscape:window-x="161"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg138" />
+  <metadata
+     id="metadata132">
+Created by potrace 1.15, written by Peter Selinger 2001-2017
+</metadata>
+  <path
+     style="fill:#330066;fill-rule:evenodd;stroke:#330066;stroke-width:0.75px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     d="m 9.6859178,77.827698 c 0,0 12.4039702,-5.86116 18.9235802,-7.08724 l 5.12308,-11.70096 c -5.2517,-18.47529 3.68861,-53.3327302 3.68861,-53.3327302 z"
+     id="path445"
+     sodipodi:nodetypes="ccccc" />
+  <rect
+     style="fill:#f8f2eb;stroke:#f8f2eb;stroke-width:0.751179;stroke-linejoin:round;stroke-opacity:1"
+     id="rect5572"
+     width="1.472797"
+     height="74.198051"
+     x="48.261219"
+     y="5.728487" />
+  <path
+     style="fill:#7093ff;fill-rule:evenodd;stroke:#7093ff;stroke-width:0.75px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     d="m 45.622258,16.661518 c -19.69289,66.43487 -21.19869,67.52515 -21.19869,67.52515 l 26.20782,-1.73872 c -2.99298,-18.55068 -6.41073,-21.8294 -5.00913,-65.78643 z"
+     id="path3958"
+     sodipodi:nodetypes="cccc" />
+  <path
+     style="fill:#330066;fill-rule:evenodd;stroke:#330066;stroke-width:0.75px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     d="m 52.052268,10.711068 -0.3934,67.27468 29.9095,-2.68726 c -14.2292,-34.44289 -25.11433,-46.45365 -29.5161,-64.58742 z"
+     id="path3960"
+     sodipodi:nodetypes="cccc" />
+  <text
+     xml:space="preserve"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:90.0072px;line-height:125%;font-family:'Maiandra GD';-inkscape-font-specification:'Maiandra GD';text-align:center;letter-spacing:-3.75px;word-spacing:0px;text-anchor:middle;fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
+     x="142.51814"
+     y="76.621185"
+     id="text8905"><tspan
+       sodipodi:role="line"
+       id="tspan8903"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:90.0072px;font-family:'Maiandra GD';-inkscape-font-specification:'Maiandra GD';fill:none;stroke:#ffffff;stroke-width:1;stroke-dasharray:none"
+       x="140.64314"
+       y="76.621185">Jib</tspan></text>
+</svg>
