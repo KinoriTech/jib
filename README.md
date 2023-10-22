@@ -1,14 +1,14 @@
 <p align="center"><img src="https://github.com/KinoriTech/jib/raw/HEAD/art/logo.svg" alt="Logo Jib"></p>
 
 <p align="center">
-    <a href="https://packagist.org/packages/laravel/sail">
-        <img src="https://img.shields.io/packagist/dt/laravel/sail" alt="Total Downloads">
+    <a href="www.powershellgallery.com/packages/Jib">
+        <img src="https://img.shields.io/powershellgallery/dt/Jib" alt="Total Downloads">
     </a>
-    <a href="https://packagist.org/packages/laravel/sail">
-        <img src="https://img.shields.io/packagist/v/laravel/sail" alt="Latest Stable Version">
+    <a href="www.powershellgallery.com/packages/Jib">
+        <img src="https://img.shields.io/powershellgallery/v/Jib" alt="Latest Stable Version">
     </a>
-    <a href="https://packagist.org/packages/laravel/sail">
-        <img src="https://img.shields.io/packagist/l/laravel/sail" alt="License">
+    <a href="www.powershellgallery.com/packages/Jib">
+        <img src="https://img.shields.io/github/license/kinoritech/jib" alt="License">
     </a>
 </p>
 
