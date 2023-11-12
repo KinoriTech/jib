@@ -1,6 +1,6 @@
 <#PSScriptInfo
 
-.VERSION 1.1
+.VERSION 1.2
 .GUID f50d40a4-5ab1-4a3b-9294-4cbe60197c8b
 .AUTHOR Horacio Hoyos
 .COMPANYNAME Kinori Tech
@@ -194,10 +194,6 @@ function Invoke-Jib {
 		return
 	}
 
-	Write-Color -Text "Command $Command" -Color Cyan
-	for ($i = 0; $i -lt $Remaining.Count; $i++) {
-        "${i}: $($Remaining[$i])"
-    }
 	# Source the ".env" file so Laravel's environment variables are available...
 	Write-Color -Text "Setting the ENVIRONMENT from the '.env' file" -Color Cyan
 	$Loaded = $false
@@ -305,7 +301,10 @@ function Invoke-Jib {
 
 		if ($Exec -eq "yes") {
 			$SAIL_ARGS += "exec", "-u", "sail"
-			$SAIL_ARGS += $env:APP_SERVICE, "php", $Remaining
+			$SAIL_ARGS += $env:APP_SERVICE, "php"
+			for ($i = 0; $i -lt $Remaining.Count; $i++) {
+				$SAIL_ARGS += $Remaining[$i]
+			}
 		} else {
 			Show-InactiveLaravel
 		}
@@ -347,7 +346,10 @@ function Invoke-Jib {
 
 		if ($Exec -eq "yes") {
 			$SAIL_ARGS += "exec", "-u", "sail"
-			$SAIL_ARGS += $env:APP_SERVICE, "composer", $Remaining
+			$SAIL_ARGS += $env:APP_SERVICE, "composer"
+			for ($i = 0; $i -lt $Remaining.Count; $i++) {
+				$SAIL_ARGS += $Remaining[$i]
+			}
 		} else {
 			Show-InactiveLaravel
 		}
@@ -359,7 +361,10 @@ function Invoke-Jib {
 
 		if ($Exec -eq "yes") {
 			$SAIL_ARGS += "exec", "-u", "sail"
-			$SAIL_ARGS += $env:APP_SERVICE, "php artisan", $Remaining
+			$SAIL_ARGS += $env:APP_SERVICE, "php artisan"
+			for ($i = 0; $i -lt $Remaining.Count; $i++) {
+				$SAIL_ARGS += $Remaining[$i]
+			}
 		} else {
 			Show-InactiveLaravel
 		}
@@ -371,7 +376,10 @@ function Invoke-Jib {
 
 		if ($Exec -eq "yes") {
 			$SAIL_ARGS += "exec", "-u", "sail"
-			$SAIL_ARGS += $env:APP_SERVICE, "php artisan", $Remaining
+			$SAIL_ARGS += $env:APP_SERVICE, "php artisan"
+			for ($i = 0; $i -lt $Remaining.Count; $i++) {
+				$SAIL_ARGS += $Remaining[$i]
+			}
 		} else {
 			Show-InactiveLaravel
 		}
@@ -380,7 +388,10 @@ function Invoke-Jib {
 	# Pass unknown commands to the "docker-compose" binary...
 	else {
 		Write-Color -Text "Pass thru to docker-compose $Command $Remaining" -Color Cyan
-		$SAIL_ARGS += $Command, $Remaining
+		$SAIL_ARGS += $Command
+		for ($i = 0; $i -lt $Remaining.Count; $i++) {
+			$SAIL_ARGS += $Remaining[$i]
+		}
 	}
 
 	$DockerCmd = "$DockerCompose $SAIL_ARGS"
