@@ -16,6 +16,8 @@
 
 Jib provides a Docker powered local development experience for Laravel that is compatible with Windows using PowerShell. Other than Docker, no software or libraries are required to be installed on your local computer before using Jib. Jibs's simple CLI means you can start building your Laravel application without any previous Docker experience.
 
+**NOTE:** When passing 'dash' paramters, e.g. -d, you need to scape the dash with a backtick: `-d.
+
 #### Inspiration
 
 Jib is a drop-in repplacement for [Laravel Sail](https://github.com/laravel/sail).

@@ -1,6 +1,6 @@
 <#PSScriptInfo
 
-.VERSION 1.0
+.VERSION 1.1
 .GUID f50d40a4-5ab1-4a3b-9294-4cbe60197c8b
 .AUTHOR Horacio Hoyos
 .COMPANYNAME Kinori Tech
@@ -34,6 +34,9 @@ function Invoke-Jib {
 	convenient methods for interacting with the Docker containers defined by
 	the docker-compose.yml file.
 
+	NOTE: When passing 'dash' paramters, e.g. -d, you need to scape the dash 
+	with a backtick: `-d.
+
 	.EXAMPLE
 
 	PS> Invoke-Jib help
@@ -45,11 +48,11 @@ function Invoke-Jib {
 	Unknown commands are passed to the docker-compose binary.
 
 	docker-compose Commands:
-	sail up        Start the application
-	sail up -d     Start the application in the background
-	sail stop      Stop the application
-	sail restart   Restart the application
-	sail ps        Display the Status of all containers
+	Invoke-Jib up        Start the application
+	Invoke-Jib up `-d     Start the application in the background
+	Invoke-Jib stop      Stop the application
+	Invoke-Jib restart   Restart the application
+	Invoke-Jib ps        Display the Status of all containers
 	...
 
 	.EXAMPLE
@@ -62,16 +65,16 @@ function Invoke-Jib {
 	Pass thru to docker-compose up
 	Executing command in container: docker compose up
 	[+] Running 4/0
-	✔ Container eventastic-mailhog-1       Running                                                                    0.0s
-	✔ Container eventastic-redis-1         Running                                                                    0.0s
-	✔ Container eventastic-mariadb-1       Running                                                                    0.0s
-	✔ Container eventastic-laravel.test-1  Running                                                                    0.0s
-	Attaching to eventastic-laravel.test-1, eventastic-mailhog-1, eventastic-mariadb-1, eventastic-redis-1
-	eventastic-laravel.test-1  |
-	eventastic-laravel.test-1  |    INFO  Server running on [http://0.0.0.0:80].
-	eventastic-laravel.test-1  |
-	eventastic-laravel.test-1  |   Press Ctrl+C to stop the server
-	eventastic-laravel.test-1  |
+	✔ Container app-mailhog-1       Running                                                                    0.0s
+	✔ Container app-redis-1         Running                                                                    0.0s
+	✔ Container app-mariadb-1       Running                                                                    0.0s
+	✔ Container app-laravel.test-1  Running                                                                    0.0s
+	Attaching to app-laravel.test-1, app-mailhog-1, app-mariadb-1, app-redis-1
+	app-laravel.test-1  |
+	app-laravel.test-1  |    INFO  Server running on [http://0.0.0.0:80].
+	app-laravel.test-1  |
+	app-laravel.test-1  |   Press Ctrl+C to stop the server
+	app-laravel.test-1  |
 
 
 	.LINK
@@ -79,7 +82,7 @@ function Invoke-Jib {
 	https://laravel.com/docs/10.x/sail
 	#>
 	param (
-		[Parameter(Position = 0)]
+		[Parameter(mandatory=$true, Position = 0)]
 		[string]$Command,
 
 		[Parameter(Position=1, ValueFromRemainingArguments)]
@@ -93,59 +96,59 @@ function Invoke-Jib {
 		Write-Host "Invoke-Jib -[Command] <String> [options] [arguments]`n"
 		Write-Host "Unknown commands are passed to the docker-compose binary.`n"
 		Write-Color -Text "docker-compose Commands:" -Color Yellow
-		Write-Color "sail up", "        Start the application" -Color Green, White
-		Write-Color "sail up -d", "     Start the application in the background" -Color Green, White
-		Write-Color "sail stop", "      Stop the application" -Color Green, White
-		Write-Color "sail restart", "   Restart the application" -Color Green, White
-		Write-Color "sail ps", "        Display the Status of all containers" -Color Green, White -LinesAfter 1
+		Write-Color "Invoke-Jib up", "        Start the application" -Color Green, White
+		Write-Color "Invoke-Jib up `-d", "    Start the application in the background" -Color Green, White
+		Write-Color "Invoke-Jib stop", "      Stop the application" -Color Green, White
+		Write-Color "Invoke-Jib restart", "   Restart the application" -Color Green, White
+		Write-Color "Invoke-Jib ps", "        Display the Status of all containers" -Color Green, White -LinesAfter 1
 		Write-Color -Text "Artisan Commands:" -Color Yellow
-		Write-Color "sail artisan ...", "          Run an Artisan command" -Color Green, White
-		Write-Color "sail artisan queue:work", "" -Color Green, White -LinesAfter 1
+		Write-Color "Invoke-Jib artisan ...", "          Run an Artisan command" -Color Green, White
+		Write-Color "Invoke-Jib artisan queue:work", "" -Color Green, White -LinesAfter 1
 		Write-Color -Text "PHP Commands:" -Color Yellow
-		Write-Color "sail php ...", "   Run a snippet of PHP code" -Color Green, White
-		Write-Color "sail php -v", "" -Color Green, White -LinesAfter 1
+		Write-Color "Invoke-Jib php ...", "   Run a snippet of PHP code" -Color Green, White
+		Write-Color "Invoke-Jib php -v", "" -Color Green, White -LinesAfter 1
 		Write-Color -Text "Composer Commands:" -Color Yellow
-		Write-Color "sail composer ...", "                       Run a Composer command" -Color Green, White
-		Write-Color "sail composer require laravel/sanctum", "" -Color Green, White -LinesAfter 1
+		Write-Color "Invoke-Jib composer ...", "                       Run a Composer command" -Color Green, White
+		Write-Color "Invoke-Jib composer require laravel/sanctum", "" -Color Green, White -LinesAfter 1
 		Write-Color -Text "Node Commands:" -Color Yellow
-		Write-Color "sail node ...", "         Run a Node command" -Color Green, White
-		Write-Color "sail node --version", "" -Color Green, White -LinesAfter 1
+		Write-Color "Invoke-Jib node ...", "         Run a Node command" -Color Green, White
+		Write-Color "Invoke-Jib node --version", "" -Color Green, White -LinesAfter 1
 		Write-Color -Text "NPM Commands:" -Color Yellow
-		Write-Color "sail npm ...", "        Run a npm command" -Color Green, White
-		Write-Color "sail npx", "            Run a npx command" -Color Green, White
-		Write-Color "sail npm run prod", "" -Color Green, White -LinesAfter 1
+		Write-Color "Invoke-Jib npm ...", "        Run a npm command" -Color Green, White
+		Write-Color "Invoke-Jib npx", "            Run a npx command" -Color Green, White
+		Write-Color "Invoke-Jib npm run prod", "" -Color Green, White -LinesAfter 1
 		Write-Color -Text "Yarn Commands:" -Color Yellow
-		Write-Color "sail yarn ...", "        Run a Yarn command" -Color Green, White
-		Write-Color "sail yarn run prod", "" -Color Green, White -LinesAfter 1
+		Write-Color "Invoke-Jib yarn ...", "        Run a Yarn command" -Color Green, White
+		Write-Color "Invoke-Jib yarn run prod", "" -Color Green, White -LinesAfter 1
 		Write-Color -Text "Database Commands:" -Color Yellow
-		Write-Color "sail mysql", "     Start a MySQL CLI session within the 'mysql' container" -Color Green, White
-		Write-Color "sail mariadb", "   Start a MySQL CLI session within the 'mariadb' container" -Color Green, White
-		Write-Color "sail psql", "      Start a PostgreSQL CLI session within the 'pgsql' container" -Color Green, White
-		Write-Color "sail redis", "     Start a Redis CLI session within the 'redis' container" -Color Green, White -LinesAfter 1
+		Write-Color "Invoke-Jib mysql", "     Start a MySQL CLI session within the 'mysql' container" -Color Green, White
+		Write-Color "Invoke-Jib mariadb", "   Start a MySQL CLI session within the 'mariadb' container" -Color Green, White
+		Write-Color "Invoke-Jib psql", "      Start a PostgreSQL CLI session within the 'pgsql' container" -Color Green, White
+		Write-Color "Invoke-Jib redis", "     Start a Redis CLI session within the 'redis' container" -Color Green, White -LinesAfter 1
 		Write-Color -Text "Debugging:" -Color Yellow
-		Write-Color "sail debug ...", "          Run an Artisan command in debug mode" -Color Green, White
-		Write-Color "sail debug queue:work", "" -Color Green, White -LinesAfter 1
+		Write-Color "Invoke-Jib debug ...", "          Run an Artisan command in debug mode" -Color Green, White
+		Write-Color "Invoke-Jib debug queue:work", "" -Color Green, White -LinesAfter 1
 		Write-Color -Text "Running Tests:" -Color Yellow
-		Write-Color "sail test", "          Run the PHPUnit tests via the Artisan test command" -Color Green, White
-		Write-Color "sail phpunit ...", "   Run PHPUnit" -Color Green, White
-		Write-Color "sail pest ...", "      Run Pest" -Color Green, White
-		Write-Color "sail pint ...", "      Run Pint" -Color Green, White
-		Write-Color "sail dusk", "          Run the Dusk tests (Requires the laravel/dusk package)" -Color Green, White
-		Write-Color "sail dusk:fails", "    Re-run previously failed Dusk tests (Requires the laravel/dusk package)" -Color Green, White -LinesAfter 1
+		Write-Color "Invoke-Jib test", "          Run the PHPUnit tests via the Artisan test command" -Color Green, White
+		Write-Color "Invoke-Jib phpunit ...", "   Run PHPUnit" -Color Green, White
+		Write-Color "Invoke-Jib pest ...", "      Run Pest" -Color Green, White
+		Write-Color "Invoke-Jib pint ...", "      Run Pint" -Color Green, White
+		Write-Color "Invoke-Jib dusk", "          Run the Dusk tests (Requires the laravel/dusk package)" -Color Green, White
+		Write-Color "Invoke-Jib dusk:fails", "    Re-run previously failed Dusk tests (Requires the laravel/dusk package)" -Color Green, White -LinesAfter 1
 		Write-Color -Text "Container CLI:" -Color Yellow
-		Write-Color "sail shell", "        Start a shell session within the application container" -Color Green, White
-		Write-Color "sail bash", "         Alias for 'sail shell'" -Color Green, White
-		Write-Color "sail root-shell", "   Start a root shell session within the application container" -Color Green, White
-		Write-Color "sail root-bash", "    Alias for 'sail root-shell'" -Color Green, White
-		Write-Color "sail tinker", "       Start a new Laravel Tinker session" -Color Green, White -LinesAfter 1
+		Write-Color "Invoke-Jib shell", "        Start a shell session within the application container" -Color Green, White
+		Write-Color "Invoke-Jib bash", "         Alias for 'sail shell'" -Color Green, White
+		Write-Color "Invoke-Jib root-shell", "   Start a root shell session within the application container" -Color Green, White
+		Write-Color "Invoke-Jib root-bash", "    Alias for 'sail root-shell'" -Color Green, White
+		Write-Color "Invoke-Jib tinker", "       Start a new Laravel Tinker session" -Color Green, White -LinesAfter 1
 		Write-Color -Text "Sharing:" -Color Yellow
-		Write-Color "sail share", "   Share the application publicly via a temporary URL" -Color Green, White
-		Write-Color "sail open", "    Open the site in your browser" -Color Green, White -LinesAfter 1
+		Write-Color "Invoke-Jib share", "   Share the application publicly via a temporary URL" -Color Green, White
+		Write-Color "Invoke-Jib open", "    Open the site in your browser" -Color Green, White -LinesAfter 1
 		Write-Color -Text "Binaries:" -Color Yellow
-		Write-Color "sail bin ...", "   Run Composer binary scripts from the vendor/bin directory" -Color Green, White -LinesAfter 1
+		Write-Color "Invoke-Jib bin ...", "   Run Composer binary scripts from the vendor/bin directory" -Color Green, White -LinesAfter 1
 		Write-Color -Text "Customization:" -Color Yellow
-		Write-Color "sail artisan sail:publish", "   Publish the Sail configuration files" -Color Green, White
-		Write-Color "sail build --no-cache", "       Rebuild all of the Sail containers" -Color Green, White
+		Write-Color "Invoke-Jib artisan sail:publish", "   Publish the Sail configuration files" -Color Green, White
+		Write-Color "Invoke-Jib build --no-cache", "       Rebuild all of the Sail containers" -Color Green, White
 		return
 	}
 
@@ -191,6 +194,10 @@ function Invoke-Jib {
 		return
 	}
 
+	Write-Color -Text "Command $Command" -Color Cyan
+	for ($i = 0; $i -lt $Remaining.Count; $i++) {
+        "${i}: $($Remaining[$i])"
+    }
 	# Source the ".env" file so Laravel's environment variables are available...
 	Write-Color -Text "Setting the ENVIRONMENT from the '.env' file" -Color Cyan
 	$Loaded = $false
