@@ -1,6 +1,6 @@
 <#PSScriptInfo
 
-.VERSION 1.3
+.VERSION 1.4
 .GUID f50d40a4-5ab1-4a3b-9294-4cbe60197c8b
 .AUTHOR Horacio Hoyos
 .COMPANYNAME Kinori Tech
@@ -307,6 +307,7 @@ function Invoke-Jib {
 			}
 		} else {
 			Show-InactiveLaravel
+			return
 		}
 	}
 
@@ -320,6 +321,7 @@ function Invoke-Jib {
 			$SAIL_ARGS += $env:APP_SERVICE, "./vendor/bin/$binCmd"
 		} else {
 			Show-InactiveLaravel
+			return
 		}
 
 
@@ -335,6 +337,7 @@ function Invoke-Jib {
 			$SAIL_ARGS += $env:APP_SERVICE, $dockerCmd
 		} else {
 			Show-InactiveLaravel
+			return
 		}
 
 
@@ -352,6 +355,7 @@ function Invoke-Jib {
 			}
 		} else {
 			Show-InactiveLaravel
+			return
 		}
 	}
 
@@ -367,6 +371,7 @@ function Invoke-Jib {
 			}
 		} else {
 			Show-InactiveLaravel
+			return
 		}
 	}
 
@@ -382,6 +387,7 @@ function Invoke-Jib {
 			}
 		} else {
 			Show-InactiveLaravel
+			return
 		}
 	}
 
@@ -397,6 +403,7 @@ function Invoke-Jib {
 			}
 		} else {
 			Show-InactiveLaravel
+			return
 		}
 	}
 
@@ -412,6 +419,7 @@ function Invoke-Jib {
 			}
 		} else {
 			Show-InactiveLaravel
+			return
 		}
 	}
 
@@ -427,6 +435,7 @@ function Invoke-Jib {
 			}
 		} else {
 			Show-InactiveLaravel
+			return
 		}
 	}
 
@@ -442,6 +451,7 @@ function Invoke-Jib {
 			}
 		} else {
 			Show-InactiveLaravel
+			return
 		}
 	}
 
@@ -459,6 +469,7 @@ function Invoke-Jib {
 			}
 		} else {
 			Show-InactiveLaravel
+			return
 		}
 	}
 
@@ -476,6 +487,7 @@ function Invoke-Jib {
 			}
 		} else {
 			Show-InactiveLaravel
+			return
 		}
 	}
 
@@ -488,6 +500,7 @@ function Invoke-Jib {
 			$SAIL_ARGS += $env:APP_SERVICE, "php artisan tinker"
 		} else {
 			Show-InactiveLaravel
+			return
 		}
 	}
 
@@ -503,6 +516,7 @@ function Invoke-Jib {
 			}
 		} else {
 			Show-InactiveLaravel
+			return
 		}
 	}
 
@@ -518,6 +532,7 @@ function Invoke-Jib {
 			}
 		} else {
 			Show-InactiveLaravel
+			return
 		}
 	}
 
@@ -533,6 +548,7 @@ function Invoke-Jib {
 			}
 		} else {
 			Show-InactiveLaravel
+			return
 		}
 	}
 
@@ -548,6 +564,7 @@ function Invoke-Jib {
 			}
 		} else {
 			Show-InactiveLaravel
+			return
 		}
 	}
 
@@ -561,6 +578,7 @@ function Invoke-Jib {
 			$SAIL_ARGS += "MYSQL_PWD=\$env:MYSQL_PASSWORD mysql -u \$env:MYSQL_USER \$env:MYSQL_DATABASE"
 		} else {
 			Show-InactiveLaravel
+			return
 		}
 	}
 
@@ -574,6 +592,7 @@ function Invoke-Jib {
 			$SAIL_ARGS += "MYSQL_PWD=\$env:MYSQL_PASSWORD mysql -u \$env:MYSQL_USER \$env:MYSQL_DATABASE"
 		} else {
 			Show-InactiveLaravel
+			return
 		}
 	}
 
@@ -587,6 +606,7 @@ function Invoke-Jib {
 			$SAIL_ARGS += "PGPASSWORD=\$env:PGPASSWORD psql -U \$env:POSTGRES_USER \$env:POSTGRES_DB"
 		} else {
 			Show-InactiveLaravel
+			return
 		}
 	}
 
@@ -602,6 +622,7 @@ function Invoke-Jib {
 			}
 		} else {
 			Show-InactiveLaravel
+			return
 		}
 	}
 
@@ -617,6 +638,7 @@ function Invoke-Jib {
 			}
 		} else {
 			Show-InactiveLaravel
+			return
 		}
 	}
 
@@ -629,6 +651,7 @@ function Invoke-Jib {
 			$SAIL_ARGS += "redis", "redis-cli"
 		} else {
 			Show-InactiveLaravel
+			return
 		}
 	}
 
@@ -651,6 +674,7 @@ function Invoke-Jib {
 			return 0
 		} else {
 			Show-InactiveLaravel
+			return
 		}
 	}
 
@@ -661,6 +685,7 @@ function Invoke-Jib {
 			return 0
 		} else {
 			Show-InactiveLaravel
+			return
 		}
 	}
 
