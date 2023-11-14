@@ -1,6 +1,6 @@
 <#PSScriptInfo
 
-.VERSION 1.2
+.VERSION 1.3
 .GUID f50d40a4-5ab1-4a3b-9294-4cbe60197c8b
 .AUTHOR Horacio Hoyos
 .COMPANYNAME Kinori Tech
@@ -300,7 +300,7 @@ function Invoke-Jib {
 		Write-Color -Text "Proxy PHP commands" -Color Cyan
 
 		if ($Exec -eq "yes") {
-			$SAIL_ARGS += "exec", "-u", "sail"
+			$SAIL_ARGS += "exec"
 			$SAIL_ARGS += $env:APP_SERVICE, "php"
 			for ($i = 0; $i -lt $Remaining.Count; $i++) {
 				$SAIL_ARGS += $Remaining[$i]
@@ -315,7 +315,7 @@ function Invoke-Jib {
 		Write-Color -Text "Proxy vendor binary commands" -Color Cyan
 
 		if ($Exec -eq "yes") {
-			$SAIL_ARGS += "exec", "-u", "sail"
+			$SAIL_ARGS += "exec"
 			$binCmd = $Remaining -join ' '
 			$SAIL_ARGS += $env:APP_SERVICE, "./vendor/bin/$binCmd"
 		} else {
@@ -330,7 +330,7 @@ function Invoke-Jib {
 		Write-Color -Text "Proxy docker-compose commands" -Color Cyan
 
 		if ($Exec -eq "yes") {
-			$SAIL_ARGS += "exec", "-u", "sail"
+			$SAIL_ARGS += "exec"
 			$dockerCmd = $DockerCompose -join ' '
 			$SAIL_ARGS += $env:APP_SERVICE, $dockerCmd
 		} else {
@@ -345,7 +345,7 @@ function Invoke-Jib {
 		Write-Color -Text "Proxy Composer commands" -Color Cyan
 
 		if ($Exec -eq "yes") {
-			$SAIL_ARGS += "exec", "-u", "sail"
+			$SAIL_ARGS += "exec"
 			$SAIL_ARGS += $env:APP_SERVICE, "composer"
 			for ($i = 0; $i -lt $Remaining.Count; $i++) {
 				$SAIL_ARGS += $Remaining[$i]
@@ -360,7 +360,7 @@ function Invoke-Jib {
 		Write-Color -Text "Proxy Artisan commands to the 'artisan' binary" -Color Cyan
 
 		if ($Exec -eq "yes") {
-			$SAIL_ARGS += "exec", "-u", "sail"
+			$SAIL_ARGS += "exec"
 			$SAIL_ARGS += $env:APP_SERVICE, "php artisan"
 			for ($i = 0; $i -lt $Remaining.Count; $i++) {
 				$SAIL_ARGS += $Remaining[$i]
@@ -375,11 +375,290 @@ function Invoke-Jib {
 		Write-Color -Text "Proxy the 'debug' command to the 'artisan' binary with xdebug enabled" -Color Cyan
 
 		if ($Exec -eq "yes") {
-			$SAIL_ARGS += "exec", "-u", "sail"
+			$SAIL_ARGS += "exec"
 			$SAIL_ARGS += $env:APP_SERVICE, "php artisan"
 			for ($i = 0; $i -lt $Remaining.Count; $i++) {
 				$SAIL_ARGS += $Remaining[$i]
 			}
+		} else {
+			Show-InactiveLaravel
+		}
+	}
+
+	# Proxy the "test" command to the "php artisan test" Artisan command...
+	elseif ($Command -eq "test") {
+		Write-Color -Text "Proxy the 'test' command to the 'artisan' binary" -Color Cyan
+
+		if ($Exec -eq "yes") {
+			$SAIL_ARGS += "exec"
+			$SAIL_ARGS += $env:APP_SERVICE, "php artisan test"
+			for ($i = 0; $i -lt $Remaining.Count; $i++) {
+				$SAIL_ARGS += $Remaining[$i]
+			}
+		} else {
+			Show-InactiveLaravel
+		}
+	}
+
+	# Proxy the "phpunit" command to "php vendor/bin/phpunit"...
+	elseif ($Command -eq "phpunit") {
+		Write-Color -Text "Proxy the 'debug' command to the 'phpunit' binary in the vendor folder" -Color Cyan
+
+		if ($Exec -eq "yes") {
+			$SAIL_ARGS += "exec"
+			$SAIL_ARGS += $env:APP_SERVICE, "php vendor/bin/phpunit"
+			for ($i = 0; $i -lt $Remaining.Count; $i++) {
+				$SAIL_ARGS += $Remaining[$i]
+			}
+		} else {
+			Show-InactiveLaravel
+		}
+	}
+
+	# Proxy the "pest" command to "php vendor/bin/pest"...
+	elseif ($Command -eq "pest") {
+		Write-Color -Text "Proxy the 'pest' command to the 'pest' binary in the vendor folder" -Color Cyan
+
+		if ($Exec -eq "yes") {
+			$SAIL_ARGS += "exec"
+			$SAIL_ARGS += $env:APP_SERVICE, "php vendor/bin/pest"
+			for ($i = 0; $i -lt $Remaining.Count; $i++) {
+				$SAIL_ARGS += $Remaining[$i]
+			}
+		} else {
+			Show-InactiveLaravel
+		}
+	}
+
+	# Proxy the "pint" command to "php vendor/bin/pint"...
+	elseif ($Command -eq "pint") {
+		Write-Color -Text "Proxy the 'pint' command to the 'pint' binary in the vendor folder" -Color Cyan
+
+		if ($Exec -eq "yes") {
+			$SAIL_ARGS += "exec"
+			$SAIL_ARGS += $env:APP_SERVICE, "php vendor/bin/pint"
+			for ($i = 0; $i -lt $Remaining.Count; $i++) {
+				$SAIL_ARGS += $Remaining[$i]
+			}
+		} else {
+			Show-InactiveLaravel
+		}
+	}
+
+	# Proxy the "dusk" command to the "php artisan dusk" Artisan command...
+	elseif ($Command -eq "dusk") {
+		Write-Color -Text "Proxy the 'dusk' command to the 'artisan' binary" -Color Cyan
+
+		if ($Exec -eq "yes") {
+			$SAIL_ARGS += "exec"
+			$SAIL_ARGS += "-e", "APP_URL=http://${APP_SERVICE}"
+        	$SAIL_ARGS += "-e", "DUSK_DRIVER_URL=http://selenium:4444/wd/hub"
+        	$SAIL_ARGS += $env:APP_SERVICE, "php artisan dusk"
+			for ($i = 0; $i -lt $Remaining.Count; $i++) {
+				$SAIL_ARGS += $Remaining[$i]
+			}
+		} else {
+			Show-InactiveLaravel
+		}
+	}
+
+	# Proxy the "dusk:fails" command to the "php artisan dusk" Artisan command...
+	elseif ($Command -eq "dusk:fails") {
+		Write-Color -Text "Proxy the 'dusk:fails' command to the 'artisan' binary" -Color Cyan
+
+		if ($Exec -eq "yes") {
+			$SAIL_ARGS += "exec"
+			$SAIL_ARGS += "-e", "APP_URL=http://${APP_SERVICE}"
+        	$SAIL_ARGS += "-e", "DUSK_DRIVER_URL=http://selenium:4444/wd/hub"
+        	$SAIL_ARGS += $env:APP_SERVICE, "php artisan dusk:fails"
+			for ($i = 0; $i -lt $Remaining.Count; $i++) {
+				$SAIL_ARGS += $Remaining[$i]
+			}
+		} else {
+			Show-InactiveLaravel
+		}
+	}
+
+	# Initiate a Laravel Tinker session within the application container...
+	elseif ($Command -eq "tinker") {
+		Write-Color -Text "Initiate a Laravel Tinker session" -Color Cyan
+
+		if ($Exec -eq "yes") {
+			$SAIL_ARGS += "exec"
+			$SAIL_ARGS += $env:APP_SERVICE, "php artisan tinker"
+		} else {
+			Show-InactiveLaravel
+		}
+	}
+
+	# Proxy Node commands to the "node" binary on the application container...
+	elseif ($Command -eq "node") {
+		Write-Color -Text "Proxy Node commands to the 'node' binary on the container..." -Color Cyan
+
+		if ($Exec -eq "yes") {
+			$SAIL_ARGS += "exec"
+			$SAIL_ARGS += $env:APP_SERVICE, "node"
+			for ($i = 0; $i -lt $Remaining.Count; $i++) {
+				$SAIL_ARGS += $Remaining[$i]
+			}
+		} else {
+			Show-InactiveLaravel
+		}
+	}
+
+	# Proxy NPM commands to the "npm" binary on the application container...
+	elseif ($Command -eq "npm") {
+		Write-Color -Text "Proxy NPM commands to the 'npm' binary on the container..." -Color Cyan
+
+		if ($Exec -eq "yes") {
+			$SAIL_ARGS += "exec"
+			$SAIL_ARGS += $env:APP_SERVICE, "npm"
+			for ($i = 0; $i -lt $Remaining.Count; $i++) {
+				$SAIL_ARGS += $Remaining[$i]
+			}
+		} else {
+			Show-InactiveLaravel
+		}
+	}
+
+	# Proxy NPX commands to the "npx" binary on the application container...
+	elseif ($Command -eq "npx") {
+		Write-Color -Text "Proxy NPX commands to the 'npx' binary on the container..." -Color Cyan
+
+		if ($Exec -eq "yes") {
+			$SAIL_ARGS += "exec"
+			$SAIL_ARGS += $env:APP_SERVICE, "npx"
+			for ($i = 0; $i -lt $Remaining.Count; $i++) {
+				$SAIL_ARGS += $Remaining[$i]
+			}
+		} else {
+			Show-InactiveLaravel
+		}
+	}
+
+	# Proxy YARN commands to the "yarn" binary on the application container...
+	elseif ($Command -eq "yarn") {
+		Write-Color -Text "Proxy YARN commands to the 'yarn' binary on the container..." -Color Cyan
+
+		if ($Exec -eq "yes") {
+			$SAIL_ARGS += "exec"
+			$SAIL_ARGS += $env:APP_SERVICE, "yarn"
+			for ($i = 0; $i -lt $Remaining.Count; $i++) {
+				$SAIL_ARGS += $Remaining[$i]
+			}
+		} else {
+			Show-InactiveLaravel
+		}
+	}
+
+	# Initiate a MySQL CLI terminal session within the "mysql" container...
+	elseif ($Command -eq "mysql") {
+		Write-Color -Text "Initiate a MySQL CLI terminal session in mysql..." -Color Cyan
+
+		if ($Exec -eq "yes") {
+			$SAIL_ARGS += "exec"
+			$SAIL_ARGS += "mysql", "bash", "-c"
+			$SAIL_ARGS += "MYSQL_PWD=\$env:MYSQL_PASSWORD mysql -u \$env:MYSQL_USER \$env:MYSQL_DATABASE"
+		} else {
+			Show-InactiveLaravel
+		}
+	}
+
+	# Initiate a MySQL CLI terminal session within the "mariadb" container...
+	elseif ($Command -eq "mysql") {
+		Write-Color -Text "Initiate a MySQL CLI terminal session in mariadb..." -Color Cyan
+
+		if ($Exec -eq "yes") {
+			$SAIL_ARGS += "exec"
+			$SAIL_ARGS += "mariadb", "bash", "-c"
+			$SAIL_ARGS += "MYSQL_PWD=\$env:MYSQL_PASSWORD mysql -u \$env:MYSQL_USER \$env:MYSQL_DATABASE"
+		} else {
+			Show-InactiveLaravel
+		}
+	}
+
+	# Initiate a PostgreSQL CLI terminal session within the "pgsql" container...
+	elseif ($Command -eq "mysql") {
+		Write-Color -Text "Initiate a PostgreSQL CLI terminal session in pgsql..." -Color Cyan
+
+		if ($Exec -eq "yes") {
+			$SAIL_ARGS += "exec"
+			$SAIL_ARGS += "pgsql", "bash", "-c"
+			$SAIL_ARGS += "PGPASSWORD=\$env:PGPASSWORD psql -U \$env:POSTGRES_USER \$env:POSTGRES_DB"
+		} else {
+			Show-InactiveLaravel
+		}
+	}
+
+	# Initiate a Bash shell within the application container...
+	elseif ($Command -eq "shell" -or $Command -eq "bash") {
+		Write-Color -Text "Initiate a Bash shell within the application container..." -Color Cyan
+
+		if ($Exec -eq "yes") {
+			$SAIL_ARGS += "exec"
+			$SAIL_ARGS += "bash"
+			for ($i = 0; $i -lt $Remaining.Count; $i++) {
+				$SAIL_ARGS += $Remaining[$i]
+			}
+		} else {
+			Show-InactiveLaravel
+		}
+	}
+
+	# Initiate a root user Bash shell within the application container...
+	elseif ($Command -eq "root-shell" -or $Command -eq "root-bash") {
+		Write-Color -Text "Initiate a Bash shell within the application container..." -Color Cyan
+
+		if ($Exec -eq "yes") {
+			$SAIL_ARGS += "exec"
+			$SAIL_ARGS += "bash"
+			for ($i = 0; $i -lt $Remaining.Count; $i++) {
+				$SAIL_ARGS += $Remaining[$i]
+			}
+		} else {
+			Show-InactiveLaravel
+		}
+	}
+
+	# Initiate a Redis CLI terminal session within the "redis" container...
+	elseif ($Command -eq "redis") {
+		Write-Color -Text "Initiate a Redis CLI terminal session within the 'redis' container..." -Color Cyan
+
+		if ($Exec -eq "yes") {
+			$SAIL_ARGS += "exec"
+			$SAIL_ARGS += "redis", "redis-cli"
+		} else {
+			Show-InactiveLaravel
+		}
+	}
+
+	# Share the site...
+	elseif ($Command -eq "share") {
+		if ($Exec -eq "yes") {
+			$SAIL_ARGS =@'
+			 docker run --init --rm -p "$SAIL_SHARE_DASHBOARD":4040 -t beyondcodegmbh/expose-server:latest share http://host.docker.internal:"$APP_PORT" \
+            --server-host="$SAIL_SHARE_SERVER_HOST" \
+            --server-port="$SAIL_SHARE_SERVER_PORT" \
+            --auth="$SAIL_SHARE_TOKEN" \
+            --server="$SAIL_SHARE_SERVER" \
+            --subdomain="$SAIL_SHARE_SUBDOMAIN" \
+            --domain="$SAIL_SHARE_DOMAIN" \
+'@
+	 		for ($i = 0; $i -lt $Remaining.Count; $i++) {
+				$SAIL_ARGS += $Remaining[$i]
+			}
+			Invoke-Expression $SAIL_ARGS
+			return 0
+		} else {
+			Show-InactiveLaravel
+		}
+	}
+
+	# Open the site...
+	elseif ($Command -eq "open") {
+		if ($Exec -eq "yes") {
+			Start-Process $env:APP_URL
+			return 0
 		} else {
 			Show-InactiveLaravel
 		}
