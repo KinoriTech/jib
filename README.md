@@ -26,6 +26,9 @@ Jib is a drop-in repplacement for [Laravel Sail](https://github.com/laravel/sail
 
 Jib supports all the Sail CLI commands, so you can refer to the offical Documentation found on the [Laravel website](https://laravel.com/docs/sail).
 
+## Tutorial
+
+I have writen a tutorial on [developing Laravel in Windows](https://kinori.tech/blog/en/2023/10/23/laravel-sail-in-windows-with-docker-and-powershell/?src=github) with Docker and PowerShell that shows how Invoke-Jib can be used.
 
 ## License
 
