@@ -28,7 +28,7 @@ Jib supports all the Sail CLI commands, so you can refer to the offical Document
 
 ## Tutorial
 
-I have writen a tutorial on [developing Laravel in Windows](https://kinori.tech/blog/en/2023/10/23/laravel-sail-in-windows-with-docker-and-powershell/?src=github) with Docker and PowerShell that shows how Invoke-Jib can be used.
+I have writen a tutorial on [developing Laravel in Windows](https://kinori.tech/blog/en/2023/10/23/laravel-sail-in-windows-with-docker-and-powershell/?mtm_campaign=github) with Docker and PowerShell that shows how Invoke-Jib can be used.
 
 ## License
 
