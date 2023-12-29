@@ -1,6 +1,6 @@
 <#PSScriptInfo
 
-.VERSION 1.4
+.VERSION 1.5
 .GUID f50d40a4-5ab1-4a3b-9294-4cbe60197c8b
 .AUTHOR Horacio Hoyos
 .COMPANYNAME Kinori Tech
@@ -461,7 +461,7 @@ function Invoke-Jib {
 
 		if ($Exec -eq "yes") {
 			$SAIL_ARGS += "exec"
-			$SAIL_ARGS += "-e", "APP_URL=http://${APP_SERVICE}"
+			$SAIL_ARGS += "-e", "APP_URL=http://$env:APP_SERVICE"
         	$SAIL_ARGS += "-e", "DUSK_DRIVER_URL=http://selenium:4444/wd/hub"
         	$SAIL_ARGS += $env:APP_SERVICE, "php artisan dusk"
 			for ($i = 0; $i -lt $Remaining.Count; $i++) {
@@ -479,9 +479,9 @@ function Invoke-Jib {
 
 		if ($Exec -eq "yes") {
 			$SAIL_ARGS += "exec"
-			$SAIL_ARGS += "-e", "APP_URL=http://${APP_SERVICE}"
+			$SAIL_ARGS += "-e", "APP_URL=http://$env:APP_SERVICE"
         	$SAIL_ARGS += "-e", "DUSK_DRIVER_URL=http://selenium:4444/wd/hub"
-        	$SAIL_ARGS += $env:APP_SERVICE, "php artisan dusk:fails"
+        	$SAIL_ARGS += $env:APP_SERVICE, " php artisan dusk:fails"
 			for ($i = 0; $i -lt $Remaining.Count; $i++) {
 				$SAIL_ARGS += $Remaining[$i]
 			}
