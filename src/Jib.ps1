@@ -380,7 +380,7 @@ function Invoke-Jib {
 		Write-Color -Text "Proxy the 'debug' command to the 'artisan' binary with xdebug enabled" -Color Cyan
 
 		if ($Exec -eq "yes") {
-			$SAIL_ARGS += "exec"
+			$SAIL_ARGS += "exec -u sail -e XDEBUG_TRIGGER=1"
 			$SAIL_ARGS += $env:APP_SERVICE, "php artisan"
 			for ($i = 0; $i -lt $Remaining.Count; $i++) {
 				$SAIL_ARGS += $Remaining[$i]
